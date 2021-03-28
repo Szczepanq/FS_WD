@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <title>Kółko i Krzyżyk</title>
+    <style>
+        * {
+            color: white;
+            background-color: black;
+            margin: 5px;
+            padding: 0;
+        }
+        .players {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        canvas {
+            border: 3px solid orangered;
+            background-color: whitesmoke;
+
+        }
+        div > div {
+            display: flex;
+            flex-wrap: wrap-reverse;
+            justify-content: center;
+            width: 20rem;
+            height: 5rem;
+
+        }
+        div > a {
+            font-size: 4rem;
+            text-transform: capitalize;
+            text-decoration: none;
+            text-align: center
+            ;
+        }
+        input[type="text"] {
+            font-size: 10rem;
+            text-align: center;
+            margin: 0;
+            text-decoration: none;
+            border: 3px solid red;
+            height: 10rem;
+            width: 10rem;
+            outline: none;
+            padding: 1rem;
+            
+        }
+        .lat {
+            border-left: none;
+            border-top: none;
+
+            
+        }
+        button {
+            height: 3rem;
+            width: 10rem;
+            border-color: brown;
+        }
+        body > main {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        body > p {
+            font-size: 5rem;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    
+        <table style="margin: 1rem;">
+            <tr>
+                <td>
+                    <input id = "pole1x1" type="text" name="pole1x1" maxlength="1" required style="border-left: none; border-top: none;">
+                </td>
+                <td>
+                    <input type="text" name="pole1x2" maxlength="1" required style="border-top: none;">
+                </td>
+                <td>
+                    <input type="text" name="pole1x3" maxlength="1" required style="border-right: none;border-top: none;">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="pole2x1" maxlength="1" required style="border-left: none;">
+                </td>
+                <td>
+                    <input type="text" name="pole2x2" maxlength="1" required>
+                </td>
+                <td>
+                    <input type="text" name="pole2x3" maxlength="1" required style="border-right: none;">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="pole3x1" maxlength="1" required style="border-left: none ; border-bottom: none;">
+                </td>
+                <td>
+                    <input type="text" name="pole3x2" maxlength="1" required style="border-bottom: none;">
+                </td>
+                <td>
+                    <input type="text" name="pole3x3" maxlength="1" required style="border-bottom: none; border-right:none">
+                </td>
+            </tr>
+        </table>
+
+        
+            <button onclick="score()">Wynik</button></div>
+            <p>Wygrywa : <div id="wynik"></div></p>
+
+
+
+    
+</main>
+
+<div class="players">
+
+    <div class="lat"><a href="#">SZCZEPAN  o</a></div>
+    <div class="lat"><a href="#">MIKOŁAJ  x</a></div>
+    
+    
+</div>
+
+
+
+
+
+<script>
+    
+    let player1 = "Szczepan";
+    let player2 = "Mikołaj";
+
+    let el1x1 = document.getElementByName("pole1x1");
+    let el1x2 = document.getElementByName("pole1x2");
+    let el1x3 = document.getElementByName("pole1x3");
+    let el2x1 = document.getElementByName("pole2x1");
+    let el2x2 = document.getElementByName("pole2x2");
+    let el2x3 = document.getElementByName("pole2x3");
+    let el3x1 = document.getElementByName("pole3x1");
+    let el3x2 = document.getElementByName("pole3x2");
+    let el3x3 = document.getElementByName("pole3x3");
+
+    
+
+
+    
+    
+    function score() {
+        document.getElementById("wynik").innerHTML = player1;
+        document.getElementById("pole1x1").innerHTML = ' ';
+        
+
+    }
+</script>
+</body>
+</html>
