@@ -9,105 +9,103 @@
     <link rel="stylesheet" href="2_kik.css">
     <title>Kółko i krzyżyk</title>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const table = document.querySelector("table");
+    const element = document.getElementsByTagName("td");
+    const x = document.getElementById("X");
+    const o = document.getElementById("O");
+    const wybor = document.getElementById("wybor");
+    let helper = "";
+    let winner = "";
+    
 
+    x.addEventListener("click", function() {
+        helper = "X";
+        wybor.innerText = "\nWybrałeś X \n \n Przeciwnik gra O";
+        o.style.display = "none";
+        x.style.display = "none";
+        console.log(helper);
+    })
+
+    o.addEventListener("click", function() {
+        helper = "O";
+        wybor.innerText = "\nWybrałeś O \n \n Przeciwnik gra X";
+        o.style.display = "none";
+        x.style.display = "none";
+        console.log(helper);
+    })
+
+
+
+    
+table.addEventListener("click", function(e){
+
+    let pole = e.target.closest("td").innerText;
+    
+    if (winner == true){ 
+        return;
+    }
+    
+    if (helper == "X" && pole == ""){   				
+    e.target.closest("td").innerText = "X";				
+            wynik("X"); 
+            wynik("0");
+            helper = "O"
+    return;												
+    } 
         
-    document.addEventListener('DOMContentLoaded', function() {
-            const table = document.querySelector("table");
-            const element = document.getElementsByTagName("td");
-            const x = document.getElementById("X");
-            const o = document.getElementById("O");
-            const wybor = document.getElementById("wybor");
-            let helper = "";
-            let winner = "";
-            
-
-            x.addEventListener("click", function() {
-                helper = "X";
-                wybor.innerText = "\nWybrałeś X \n \n Przeciwnik gra O";
-                o.style.display = "none";
-                x.style.display = "none";
-                console.log(helper);
-            })
-	
-            o.addEventListener("click", function() {
-                helper = "O";
-                wybor.innerText = "\nWybrałeś O \n \n Przeciwnik gra X";
-                o.style.display = "none";
-                x.style.display = "none";
-                console.log(helper);
-            })
+    if (helper == "O" && pole == ""){ 
+    e.target.closest("td").innerText = "0";
+            wynik("0");
+            wynik("X");
+            helper = "X"
+    return;
+    } 
 
 
-
-            
-        table.addEventListener("click", function(e){
-		
-            let pole = e.target.closest("td").innerText;
-            
-            if (winner == true){ 
-                return;
+            function win(s)
+            {
+                document.querySelector("#wynik").innerText =" \n Wygrał: " + s;
+                winner = true;
+                console.log("yupi!");
             }
             
-            if (helper == "X" && pole == ""){   				
-            e.target.closest("td").innerText = "X";				
-                    wynik("X"); 
-                    wynik("0");
-                    helper = "O"
-            return;												
-            } 
+            function tie(){
+                document.querySelector("#wynik").innerText = "Remis :(";
+            }
+            function wynik(s) {
                 
-            if (helper == "O" && pole == ""){ 
-            e.target.closest("td").innerText = "0";
-                    wynik("0");
-                    wynik("X");
-                    helper = "X"
-            return;
-            } 
-        
-        
-                    function win(s)
+                    let i;
+                    let k;
+                    for(k=0;k<9;k=k+3)//wygrane w poziomie
                     {
-                        document.querySelector("#wynik").innerText =" \n Wygrał: " + s;
-                        winner = true;
-                        console.log("yupi!");
+                        if(element[k].innerText === s && element[k+1].innerText === s && element[k+2].innerText  === s){win(s);}
                     }
-                    
-                    function tie(){
-                        document.querySelector("#wynik").innerText = "Remis :(";
-                    }
-                    function wynik(s) {
-                        
-                            let i;
-                            let k;
-                            for(k=0;k<9;k=k+3)//wygrane w poziomie
-                            {
-                                if(element[k].innerText === s && element[k+1].innerText === s && element[k+2].innerText  === s){win(s);}
-                            }
 
-                            for(k=0;k<3;k++)//wygrane w pionie
-                            {
-                                if(element[k].innerText === s && element[k+3].innerText === s && element[k+6].innerText === s){win(s);}
-                            }
-
-                            //skosy
-                            if(element[0].innerText === s && element[4].innerText === s && element[8].innerText === s ){win(s);}
-                            if(element[2].innerText === s && element[4].innerText === s && element[6].innerText === s ){win(s);}
-                            i=0;
-                            for ( k = 0; k < 9; k++ ) {
-                                   if (element[k].innerText != "" )
-                                   {
-                                       i++
-                                    if (i == 9 && winner != true) {tie();}
-                                   }
-                                   
-                                     
-                             }
+                    for(k=0;k<3;k++)//wygrane w pionie
+                    {
+                        if(element[k].innerText === s && element[k+3].innerText === s && element[k+6].innerText === s){win(s);}
                     }
+
+                    //skosy
+                    if(element[0].innerText === s && element[4].innerText === s && element[8].innerText === s ){win(s);}
+                    if(element[2].innerText === s && element[4].innerText === s && element[6].innerText === s ){win(s);}
+                    i=0;
+                    for ( k = 0; k < 9; k++ ) {
+                           if (element[k].innerText != "" )
+                           {
+                               i++
+                            if (i == 9 && winner != true) {tie();}
+                           }
                            
-                               
-        })
-        
-    })
+                             
+                     }
+            }
+                   
+                       
+})
+
+})
     </script>
 </head>
 <body>
