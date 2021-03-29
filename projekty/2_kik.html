@@ -13,15 +13,11 @@
             margin: 5px;
             padding: 0;
         }
-        .players {
+        div.players {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-        }
-        canvas {
-            border: 3px solid orangered;
-            background-color: whitesmoke;
-
+            
         }
         div > div {
             display: flex;
@@ -38,7 +34,7 @@
             text-align: center
             ;
         }
-        input[type="text"] {
+        table input[type="text"] {
             font-size: 10rem;
             text-align: center;
             margin: 0;
@@ -65,98 +61,224 @@
             display: flex;
             flex-wrap: wrap;
         }
-        body > p {
-            font-size: 5rem;
+        body > main > p, button, div.wynik {
+            font-size: 2rem;
         }
+        .legend {
+            background-color: gray;
+            color: white;
+            padding: 5px 10px;
+            border-color: brown;
+        }
+        
     </style>
+    <script>
+
+
+        var player1 = 'Szczepan';
+        var player2 = 'Mikołaj';
+
+
+            function players() {
+                var tmp1 = getElementsByName("players")[0].value;
+                var tmp2 = getElementsByName("players")[1].value;
+                player1.replace('Szczepan',tmp1);
+                player2.replace('Mikołaj',tmp2);
+                //alert(player1 " vs " player2);
+
+            }
+         
+
+        var war = " ";
+        var element = [];    
+        
+        
+        function score() {
+            var n;
+            var lc;
+            for (n = 0; n<9; n++)
+            {
+                element[n] = document.getElementsByName("pole")[n].value;
+                lc = element[n];
+                element[n] = lc.toLowerCase();
+            }
+            
+            var x;
+            var y;
+            for(x=0;x<9;x++)
+            {
+                y = element[x];
+                if(y === 'x' || y === 'o')
+                {
+                    continue;
+                }
+                else
+                {
+                    alert("Wprowadz w kazda kratke o lub x");
+                    document.getElementById("wynik").innerHTML = ' ';
+                    break;
+                }
+            }
+                var uno;
+                var dos;
+                var tres;
+                var k;
+
+            for(k=0;k<8;k++)//wygrane w poziomie
+            {
+
+                uno = element[k];
+                dos = element[k+1];
+                tres = element[k+2];
+
+                 if(uno === dos && dos === tres && tres === 'x')document.getElementById("wynik").innerHTML = player2;
+
+                 if(uno === dos && dos === tres && tres === 'o')document.getElementById("wynik").innerHTML = player1;
+
+
+                k=k+2;
+            }
+            k = 0;
+            for(k=0;k<3;k++)//wygrane w pionie
+            {
+
+                uno = element[k];
+                dos = element[k+3];
+                tres = element[k+6];
+
+                 if(uno === dos && dos === tres && tres === 'x')document.getElementById("wynik").innerHTML = player2;
+
+                 if(uno === dos && dos === tres && tres === 'o')document.getElementById("wynik").innerHTML = player1;
+
+            }
+            k = 0;
+            for(k=0;k<1;k++)//wygrane w skosie-lewo
+            {
+
+                uno = element[k];
+                dos = element[k+4];
+                tres = element[k+8];
+
+                 if(uno === dos && dos === tres && tres === 'x')document.getElementById("wynik").innerHTML = player2;
+
+                 if(uno === dos && dos === tres && tres === 'o')document.getElementById("wynik").innerHTML = player1;
+                k++;
+            }
+            k = 0;
+            for(k=0;k<1;k++)//wygrane w skosie-prawo
+            {
+                k = 2;
+                uno = element[k];
+                dos = element[k+2];
+                tres = element[k+4];
+
+                 if(uno === dos && dos === tres && tres === 'x')document.getElementById("wynik").innerHTML = player2;
+
+                 if(uno === dos && dos === tres && tres === 'o')document.getElementById("wynik").innerHTML = player1;
+                k++;
+            }
+
+
+            
+
+                
+            
+            
+            
+            
+            
+            
+            
+           // document.getElementById("wynik").innerHTML = element[8];
+
+        }
+
+
+    </script>
 </head>
 <body>
 
-<main>
+<main>  
     
         <table style="margin: 1rem;">
+            <form action="">
             <tr>
                 <td>
-                    <input id = "pole1x1" type="text" name="pole1x1" maxlength="1" required style="border-left: none; border-top: none;">
+                    <input  type="text" name="pole" maxlength="1" required style="border-left: none; border-top: none;">
                 </td>
                 <td>
-                    <input type="text" name="pole1x2" maxlength="1" required style="border-top: none;">
+                    <input type="text" name="pole" maxlength="1" required style="border-top: none;">
                 </td>
                 <td>
-                    <input type="text" name="pole1x3" maxlength="1" required style="border-right: none;border-top: none;">
+                    <input type="text" name="pole" maxlength="1" required style="border-right: none;border-top: none;">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" name="pole2x1" maxlength="1" required style="border-left: none;">
+                    <input type="text" name="pole" maxlength="1" required style="border-left: none;">
                 </td>
                 <td>
-                    <input type="text" name="pole2x2" maxlength="1" required>
+                    <input type="text" name="pole" maxlength="1" required>
                 </td>
                 <td>
-                    <input type="text" name="pole2x3" maxlength="1" required style="border-right: none;">
+                    <input type="text" name="pole" maxlength="1" required style="border-right: none;">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" name="pole3x1" maxlength="1" required style="border-left: none ; border-bottom: none;">
+                    <input type="text" name="pole" maxlength="1" required style="border-left: none ; border-bottom: none;">
                 </td>
                 <td>
-                    <input type="text" name="pole3x2" maxlength="1" required style="border-bottom: none;">
+                    <input type="text" name="pole" maxlength="1" required style="border-bottom: none;">
                 </td>
                 <td>
-                    <input type="text" name="pole3x3" maxlength="1" required style="border-bottom: none; border-right:none">
+                    <input type="text" name="pole" maxlength="1" required style="border-bottom: none; border-right:none">
                 </td>
             </tr>
+            <button type="reset">Reset</button>
+        </form>
         </table>
 
         
-            <button onclick="score()">Wynik</button></div>
+            <button onclick="score()">Wynik</button>
+            
             <p>Wygrywa : <div id="wynik"></div></p>
+            <!-- <p>Wygrywa : <div id="wynik2"></div></p> -->
 
 
 
     
 </main>
 
-<div class="players">
 
-    <div class="lat"><a href="#">SZCZEPAN  o</a></div>
-    <div class="lat"><a href="#">MIKOŁAJ  x</a></div>
-    
-    
-</div>
+<!-- <div class="players">
+    <div><a href="#"><label for="player1">O gra : </label> <input type="text" id="player1" maxlength="15" placeholder="gracz1"></a></div>
 
-
-
-
-
-<script>
-    
-    let player1 = "Szczepan";
-    let player2 = "Mikołaj";
-
-    let el1x1 = document.getElementByName("pole1x1");
-    let el1x2 = document.getElementByName("pole1x2");
-    let el1x3 = document.getElementByName("pole1x3");
-    let el2x1 = document.getElementByName("pole2x1");
-    let el2x2 = document.getElementByName("pole2x2");
-    let el2x3 = document.getElementByName("pole2x3");
-    let el3x1 = document.getElementByName("pole3x1");
-    let el3x2 = document.getElementByName("pole3x2");
-    let el3x3 = document.getElementByName("pole3x3");
-
-    
-
-
-    
-    
-    function score() {
-        document.getElementById("wynik").innerHTML = player1;
-        document.getElementById("pole1x1").innerHTML = ' ';
+</div> -->
+<form class="legend">
+    <fieldset>
         
+        <p>
+            <label>GRACZ o  
+                <input type="text" name="player1" id="player"  placeholder="Szczepan">
+            </label>
+        </p>
+        <p>
+            <label>GRACZ x  
+                <input type="text" name="player2" id="player"  placeholder="Mikołaj">
+            </label>
+        </p>
+        <p>
+            <button onclick="play">GRAJ</button>
 
-    }
-</script>
+        </p>
+    </fieldset>
+</form>
+
+
+
+
+
+
 </body>
 </html>
