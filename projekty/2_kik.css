@@ -1,55 +1,72 @@
-
 * {
-    color: white;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
     
 }
-body {
-    background-color: black;
+ #side {
+    display: inline-block;
+    top: 0;
+    vertical-align: top;
+    height: 600px;
+    width: 600px;
+ }
+ table{
+     height: 600px;
+     width: 600px;
+     
+ }
+div {
+    
+    margin: 0 auto;
+
 }
-#main{
+#helper
+{
+    display: none;
+}
+ div button {
+    font-size: 1.5rem;
+    height: 50px;
+    width: 100%;
+    justify-content: center;
+    background-color: rgb(28, 80, 37);
+    color: black;
+}
+ div button.nazwa_gry {
+    font-family: sans-serif;
+    font-size: 3rem;
+    height: 100px;
+    width: 100%;
+    justify-content: center;
+}
+#wybor, #wynik{
+    font-size: 1rem;
+    height: 100px;
+    font-family: cursive;
+}
+#X, #O {
+    margin: 25px;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    width: 100px;
+    
+}
+
+#side #xoro {
     display: flex;
     flex-wrap: wrap;
 }
-#sc {
-    font-family: fantasy;
-    font-size: 20px;
-}
-#part {
-    width: 45%;
-    margin: 5px;
-    text-align: center;
-    overflow: hidden;
-}
-#main #part .plansza {
-    justify-content: right;
-    border-top: none;
-}
-#part button {
-    font-family:fantasy;
-    font-size: 30px;
-    margin: 5px;
-    background-color: rgb(50, 68, 46);
-    height: 10%;
-    width: 40%;
-    border-color: brown;
-}
-table input[type="text"] {
-    
-    background-color: rgb(33, 32, 43);
+tr td {
     font-size: 10rem;
+    height: 190px;
+    width: 190px;
+    color: chartreuse;
+    background-color: rgb(33, 32, 43);
+    padding: 0;
+    position:initial;
     text-align: center;
     margin: 0;
     text-decoration: none;
     border: 3px solid red;
-    height: 99%;
-    width: 99%;
-    outline: none;
-    padding: 1rem;
-}
-
-input[name="pole"] {
-    font-family:fantasy;
-    font-size: 30px;
 }

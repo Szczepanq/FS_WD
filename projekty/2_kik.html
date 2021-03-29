@@ -7,205 +7,154 @@
     <meta http-equiv="Content-Script-Type" content="text/javascript">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
     <link rel="stylesheet" href="2_kik.css">
-    
-    <title>Kółko i Krzyżyk</title>
+    <title>Kółko i krzyżyk</title>
     <script>
 
-        document.addEventListener('DOMContentLoaded', function() {
-
-        const table = document.querySelector("table");
-        const element = document.getElementsByTagName("td");
-        const x = document.getElementById("X");
-	    const o = document.getElementById("O");
-        const wybor = document.getElementById("wybor");
-        const h2 = document.getElementById("h2");
-        let helper = "o";
-        let winner = "";
-        let player = ""
-
-
-        x.addEventListener("click", function() {
-        o.style.display = "none";
-        x.style.display = "none";  
-        h2.style.display = "none";
-        helper = "X"; 
-		document.getElementById("wybor").innerText = "Wybrałeś X \n \n Przeciwnik gra O";
-		console.log(x);
-	})
-	
-	    o.addEventListener("click", function() {
-        o.style.display = "none";
-        x.style.display = "none";  
-        h2.style.display = "none";
-        helper = "O";
-		document.getElementById("wybor").innerText = "Wybrałeś O \n \n Przeciwnik gra X";
-		console.log(o);
-	})
-
         
-        table.addEventListener("click", function(e){
+    document.addEventListener('DOMContentLoaded', function() {
+            const table = document.querySelector("table");
+            const element = document.getElementsByTagName("td");
+            const x = document.getElementById("X");
+            const o = document.getElementById("O");
+            const wybor = document.getElementById("wybor");
+            let helper = "";
+            let winner = "";
             
+
+            x.addEventListener("click", function() {
+                helper = "X";
+                wybor.innerText = "\nWybrałeś X \n \n Przeciwnik gra O";
+                o.style.display = "none";
+                x.style.display = "none";
+                console.log(helper);
+            })
+	
+            o.addEventListener("click", function() {
+                helper = "O";
+                wybor.innerText = "\nWybrałeś O \n \n Przeciwnik gra X";
+                o.style.display = "none";
+                x.style.display = "none";
+                console.log(helper);
+            })
+
+
+
+            
+        table.addEventListener("click", function(e){
+		
             let pole = e.target.closest("td").innerText;
             
             if (winner == true){ 
                 return;
             }
             
-            if (helper === "X" && pole == ""){   				// Jesli helper rowna sie X to wykonaj:
-            e.target.closest("td").innerText = "X";				// wpisz w najbliszy td (czyli klikniety td) X
-            score("X"); 
-            score("0");  
-            if (player == "") { 
-				helper = "0";
-            }
-            wynik("X"); 
-			ynik("0");
-            return;											// wyjdz i nie sprawdzaj kolejnego warunku
+            if (helper == "X" && pole == ""){   				
+            e.target.closest("td").innerText = "X";				
+                    wynik("X"); 
+                    wynik("0");
+                    helper = "O"
+            return;												
             } 
                 
-            if (helper === "0" && pole == ""){ 
+            if (helper == "O" && pole == ""){ 
             e.target.closest("td").innerText = "0";
-            score("0");
-            score("X");
-            if (player == "") { 
-				helper = "X";
-            }					
-            wynik("X"); 
-			wynik("0");
+                    wynik("0");
+                    wynik("X");
+                    helper = "X"
             return;
             } 
-         	
         
-
-
-        function score(s) {
+        
+                    function win(s)
+                    {
+                        document.querySelector("#wynik").innerText =" \n Wygrał: " + s;
+                        winner = true;
+                        console.log("yupi!");
+                    }
+                    
+                    function tie(){
+                        document.querySelector("#wynik").innerText = "Remis :(";
+                    }
+                    function wynik(s) {
                         
-                var player1 = "O"
-                var player2 = "X"
-                var uno;
-                var dos;
-                var tres;
-                var k;
+                            let i;
+                            let k;
+                            for(k=0;k<9;k=k+3)//wygrane w poziomie
+                            {
+                                if(element[k].innerText === s && element[k+1].innerText === s && element[k+2].innerText  === s){win(s);}
+                            }
 
-            for(k=0;k<8;k++)//wygrane w poziomie
-            {
+                            for(k=0;k<3;k++)//wygrane w pionie
+                            {
+                                if(element[k].innerText === s && element[k+3].innerText === s && element[k+6].innerText === s){win(s);}
+                            }
 
-                uno = element[k];
-                dos = element[k+1];
-                tres = element[k+2];
-
-                 if(uno === dos && dos === tres && tres === 'X')document.getElementById("wynik").innerHTML = player2;
-                 if(uno === dos && dos === tres && tres === 'O')document.getElementById("wynik").innerHTML = player1;
-
-
-                k=k+2;
-            }
-            k = 0;
-            for(k=0;k<3;k++)//wygrane w pionie
-            {
-
-                uno = element[k];
-                dos = element[k+3];
-                tres = element[k+6];
-
-                 if(uno === dos && dos === tres && tres === 'X')document.getElementById("wynik").innerHTML = player2;
-                 if(uno === dos && dos === tres && tres === 'O')document.getElementById("wynik").innerHTML = player1;
-
-            }
-            k = 0;
-            for(k=0;k<1;k++)//wygrane w skosie-lewo
-            {
-
-                uno = element[k];
-                dos = element[k+4];
-                tres = element[k+8];
-
-                 if(uno === dos && dos === tres && tres === 'X')document.getElementById("wynik").innerHTML = player2;
-                 if(uno === dos && dos === tres && tres === 'O')document.getElementById("wynik").innerHTML = player1;
-                k++;
-            }
-            k = 0;
-            for(k=0;k<1;k++)//wygrane w skosie-prawo
-            {
-                k = 2;
-                uno = element[k];
-                dos = element[k+2];
-                tres = element[k+4];
-
-                 if(uno === dos && dos === tres && tres === 'X')document.getElementById("wynik").innerHTML = player2;
-                 if(uno === dos && dos === tres && tres === '0')document.getElementById("wynik").innerHTML = player1;
-                k++;
-            }
-        }
-
+                            //skosy
+                            if(element[0].innerText === s && element[4].innerText === s && element[8].innerText === s ){win(s);}
+                            if(element[2].innerText === s && element[4].innerText === s && element[6].innerText === s ){win(s);}
+                            i=0;
+                            for ( k = 0; k < 9; k++ ) {
+                                   if (element[k].innerText != "" )
+                                   {
+                                       i++
+                                    if (i == 9 && winner != true) {tie();}
+                                   }
+                                   
+                                     
+                             }
+                    }
+                           
+                               
+        })
+        
     })
-})
     </script>
-    
 </head>
 <body>
-    <div id="main">
-
-        <div id="part">
-            <table class="plansza" >
-                <tbody>
-                    <tr>
-                        <td>
-                            <input  type="text" name="pole" maxlength="1" required style="border-left: none; border-top: none;">
-                        </td>
-                        <td>
-                            <input type="text" name="pole" maxlength="1" required style="border-top: none;">
-                        </td>
-                        <td>
-                            <input type="text" name="pole" maxlength="1" required style="border-right: none;border-top: none;">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" name="pole" maxlength="1" required style="border-left: none;">
-                        </td>
-                        <td>
-                            <input type="text" name="pole" maxlength="1" required>
-                        </td>
-                        <td>
-                            <input type="text" name="pole" maxlength="1" required style="border-right: none;">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" name="pole" maxlength="1" required style="border-left: none ; border-bottom: none;">
-                        </td>
-                        <td>
-                            <input type="text" name="pole" maxlength="1" required style="border-bottom: none;">
-                        </td>
-                        <td>
-                            <input type="text" name="pole" maxlength="1" required style="border-bottom: none; border-right:none">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> 
-
-        <div id="part">
-            <button disabled style="width: 100%;">Kółko i Krzyżyk</button><br><br>
-            
-            
-            <div id="sc">
-               <br> <span id="wynik"></span> <br>
-            </div>
-            <h2 id="h2">Wybierz O lub X</h3><br>
-            <button id="X">X</button>
-            <button id="O">O</button>
-            <div id="sc">
-                <span id="wybor"></span>
-            </div>
-            <br>
-            <button onClick="window.location.href=window.location.href">Reset!</button>
 
 
-            
-        </div>
-    
+    <div id="side">
+        <table>
+                <tr>
+                    <td id="pierwszy"></td>
+                    <td id="drugi"></td>
+                    <td id="trzeci"></td>
+                </tr>
+                <tr>
+                    <td id="czwarty"></td>
+                    <td id="piaty"></td>
+                    <td id="szosty"></td>
+                </tr>
+                <tr>
+                    <td id="siodmy"></td>
+                    <td id="osmy"></td>
+                    <td id="dziewiaty"></td>
+                </tr>
+        </table>
+
+
     </div>
+    <div id="side">
+        <div>
+            <button class="nazwa_gry" disabled>KÓŁKO I KRZYŻYK</button>
+        </div>
+        <div>
+            <button disabled>WYBIERZ O LUB X</button>
+        </div>
+        <div id="xoro">
+            <div><button id="X">X</button></div>
+            <div><button id="O">O</button></div>            
+        </div>   
+            
+        <div>
+            <div id="wybor"></div>
+            <button disabled>WYNIK GRY</button>
+            <div id="wynik"></div>
+        </div>
+        <div>
+            <button onClick="window.location.href=window.location.href">Reset!</button>
+        </div>
+    </div>
+    
 </body>
 </html>
