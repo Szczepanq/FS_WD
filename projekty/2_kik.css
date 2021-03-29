@@ -1,0 +1,55 @@
+
+* {
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    
+}
+body {
+    background-color: black;
+}
+#main{
+    display: flex;
+    flex-wrap: wrap;
+}
+#sc {
+    font-family: fantasy;
+    font-size: 20px;
+}
+#part {
+    width: 45%;
+    margin: 5px;
+    text-align: center;
+    overflow: hidden;
+}
+#main #part .plansza {
+    justify-content: right;
+    border-top: none;
+}
+#part button {
+    font-family:fantasy;
+    font-size: 30px;
+    margin: 5px;
+    background-color: rgb(50, 68, 46);
+    height: 10%;
+    width: 40%;
+    border-color: brown;
+}
+table input[type="text"] {
+    
+    background-color: rgb(33, 32, 43);
+    font-size: 10rem;
+    text-align: center;
+    margin: 0;
+    text-decoration: none;
+    border: 3px solid red;
+    height: 99%;
+    width: 99%;
+    outline: none;
+    padding: 1rem;
+}
+
+input[name="pole"] {
+    font-family:fantasy;
+    font-size: 30px;
+}

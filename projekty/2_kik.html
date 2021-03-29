@@ -5,116 +5,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+    <link rel="stylesheet" href="2_kik.css">
+    
     <title>Kółko i Krzyżyk</title>
-    <style>
-        * {
-            color: white;
-            background-color: black;
-            margin: 5px;
-            padding: 0;
-        }
-        div.players {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            
-        }
-        div > div {
-            display: flex;
-            flex-wrap: wrap-reverse;
-            justify-content: center;
-            width: 20rem;
-            height: 5rem;
-
-        }
-        div > a {
-            font-size: 4rem;
-            text-transform: capitalize;
-            text-decoration: none;
-            text-align: center
-            ;
-        }
-        table input[type="text"] {
-            font-size: 10rem;
-            text-align: center;
-            margin: 0;
-            text-decoration: none;
-            border: 3px solid red;
-            height: 10rem;
-            width: 10rem;
-            outline: none;
-            padding: 1rem;
-            
-        }
-        .lat {
-            border-left: none;
-            border-top: none;
-
-            
-        }
-        button {
-            height: 3rem;
-            width: 10rem;
-            border-color: brown;
-        }
-        body > main {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        body > main > p, button, div.wynik {
-            font-size: 2rem;
-        }
-        .legend {
-            background-color: gray;
-            color: white;
-            padding: 5px 10px;
-            border-color: brown;
-        }
-        
-    </style>
     <script>
 
+        document.addEventListener('DOMContentLoaded', function() {
 
-        var player1 = 'O';
-        var player2 = 'X';
-        var tmp = [];
-        var element = [];    
+        const table = document.querySelector("table");
+        const element = document.getElementsByTagName("td");
+        const x = document.getElementById("X");
+	    const o = document.getElementById("O");
+        const wybor = document.getElementById("wybor");
+        const h2 = document.getElementById("h2");
+        let helper = "o";
+        let winner = "";
+        let player = ""
+
+
+        x.addEventListener("click", function() {
+        o.style.display = "none";
+        x.style.display = "none";  
+        h2.style.display = "none";
+        helper = "X"; 
+		document.getElementById("wybor").innerText = "Wybrałeś X \n \n Przeciwnik gra O";
+		console.log(x);
+	})
+	
+	    o.addEventListener("click", function() {
+        o.style.display = "none";
+        x.style.display = "none";  
+        h2.style.display = "none";
+        helper = "O";
+		document.getElementById("wybor").innerText = "Wybrałeś O \n \n Przeciwnik gra X";
+		console.log(o);
+	})
+
         
-        
-        function score() {
-
-                // tmp[0] = getElementById("player1")[0].value;
-                // tmp[1] = getElementById("player2")[1].value;
-                // player1 = tmp[0];
-                // player2 = tmp[1];
-                
-
-
-            var n;
-            var lc;
-            for (n = 0; n<9; n++)
-            {
-                element[n] = document.getElementsByName("pole")[n].value;
-                lc = element[n];
-                element[n] = lc.toLowerCase();
+        table.addEventListener("click", function(e){
+            
+            let pole = e.target.closest("td").innerText;
+            
+            if (winner == true){ 
+                return;
             }
             
-            var x;
-            var y;
-            for(x=0;x<9;x++)
-            {
-                y = element[x];
-                if(y === 'x' || y === 'o')
-                {
-                    continue;
-                }
-                else
-                {
-                    alert("Wprowadz w kazda kratke o lub x");
-                    document.getElementById("wynik").innerHTML = ' ';
-                    break;
-                }
+            if (helper === "X" && pole == ""){   				// Jesli helper rowna sie X to wykonaj:
+            e.target.closest("td").innerText = "X";				// wpisz w najbliszy td (czyli klikniety td) X
+            score("X"); 
+            score("0");  
+            if (player == "") { 
+				helper = "0";
             }
+            wynik("X"); 
+			ynik("0");
+            return;											// wyjdz i nie sprawdzaj kolejnego warunku
+            } 
+                
+            if (helper === "0" && pole == ""){ 
+            e.target.closest("td").innerText = "0";
+            score("0");
+            score("X");
+            if (player == "") { 
+				helper = "X";
+            }					
+            wynik("X"); 
+			ynik("0");
+            return;
+            } 
+         	
+        
+
+
+        function score(s) {
+                        
+                var player1 = "O"
+                var player2 = "X"
                 var uno;
                 var dos;
                 var tres;
@@ -127,9 +94,8 @@
                 dos = element[k+1];
                 tres = element[k+2];
 
-                 if(uno === dos && dos === tres && tres === 'x')document.getElementById("wynik").innerHTML = player2;
-
-                 if(uno === dos && dos === tres && tres === 'o')document.getElementById("wynik").innerHTML = player1;
+                 if(uno === dos && dos === tres && tres === 'X')document.getElementById("wynik").innerHTML = player2;
+                 if(uno === dos && dos === tres && tres === 'O')document.getElementById("wynik").innerHTML = player1;
 
 
                 k=k+2;
@@ -142,9 +108,8 @@
                 dos = element[k+3];
                 tres = element[k+6];
 
-                 if(uno === dos && dos === tres && tres === 'x')document.getElementById("wynik").innerHTML = player2;
-
-                 if(uno === dos && dos === tres && tres === 'o')document.getElementById("wynik").innerHTML = player1;
+                 if(uno === dos && dos === tres && tres === 'X')document.getElementById("wynik").innerHTML = player2;
+                 if(uno === dos && dos === tres && tres === 'O')document.getElementById("wynik").innerHTML = player1;
 
             }
             k = 0;
@@ -155,9 +120,8 @@
                 dos = element[k+4];
                 tres = element[k+8];
 
-                 if(uno === dos && dos === tres && tres === 'x')document.getElementById("wynik").innerHTML = player2;
-
-                 if(uno === dos && dos === tres && tres === 'o')document.getElementById("wynik").innerHTML = player1;
+                 if(uno === dos && dos === tres && tres === 'X')document.getElementById("wynik").innerHTML = player2;
+                 if(uno === dos && dos === tres && tres === 'O')document.getElementById("wynik").innerHTML = player1;
                 k++;
             }
             k = 0;
@@ -168,77 +132,80 @@
                 dos = element[k+2];
                 tres = element[k+4];
 
-                 if(uno === dos && dos === tres && tres === 'x')document.getElementById("wynik").innerHTML = player2;
-
-                 if(uno === dos && dos === tres && tres === 'o')document.getElementById("wynik").innerHTML = player1;
+                 if(uno === dos && dos === tres && tres === 'X')document.getElementById("wynik").innerHTML = player2;
+                 if(uno === dos && dos === tres && tres === '0')document.getElementById("wynik").innerHTML = player1;
                 k++;
             }
         }
 
-
+    })
+})
     </script>
+    
 </head>
 <body>
+    <div id="main">
 
-<main>  
+        <div id="part">
+            <table class="plansza" >
+                <tbody>
+                    <tr>
+                        <td>
+                            <input  type="text" name="pole" maxlength="1" required style="border-left: none; border-top: none;">
+                        </td>
+                        <td>
+                            <input type="text" name="pole" maxlength="1" required style="border-top: none;">
+                        </td>
+                        <td>
+                            <input type="text" name="pole" maxlength="1" required style="border-right: none;border-top: none;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="pole" maxlength="1" required style="border-left: none;">
+                        </td>
+                        <td>
+                            <input type="text" name="pole" maxlength="1" required>
+                        </td>
+                        <td>
+                            <input type="text" name="pole" maxlength="1" required style="border-right: none;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="pole" maxlength="1" required style="border-left: none ; border-bottom: none;">
+                        </td>
+                        <td>
+                            <input type="text" name="pole" maxlength="1" required style="border-bottom: none;">
+                        </td>
+                        <td>
+                            <input type="text" name="pole" maxlength="1" required style="border-bottom: none; border-right:none">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+
+        <div id="part">
+            <button disabled style="width: 100%;">Kółko i Krzyżyk</button><br><br>
+            
+            
+            <div id="sc">
+               <br> <span id="wynik"></span> <br>
+            </div>
+            <h2 id="h2">Wybierz O lub X</h3><br>
+            <button id="X">X</button>
+            <button id="O">O</button>
+            <div id="sc">
+                <span id="wybor"></span>
+            </div>
+            <br>
+            <button onClick="window.location.href=window.location.href">Reset!</button>
+
+
+            
+        </div>
     
-        <table style="margin: 1rem;">
-            <form action="">
-            <tr>
-                <td>
-                    <input  type="text" name="pole" maxlength="1" required style="border-left: none; border-top: none;">
-                </td>
-                <td>
-                    <input type="text" name="pole" maxlength="1" required style="border-top: none;">
-                </td>
-                <td>
-                    <input type="text" name="pole" maxlength="1" required style="border-right: none;border-top: none;">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" name="pole" maxlength="1" required style="border-left: none;">
-                </td>
-                <td>
-                    <input type="text" name="pole" maxlength="1" required>
-                </td>
-                <td>
-                    <input type="text" name="pole" maxlength="1" required style="border-right: none;">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" name="pole" maxlength="1" required style="border-left: none ; border-bottom: none;">
-                </td>
-                <td>
-                    <input type="text" name="pole" maxlength="1" required style="border-bottom: none;">
-                </td>
-                <td>
-                    <input type="text" name="pole" maxlength="1" required style="border-bottom: none; border-right:none">
-                </td>
-            </tr>
-            <button type="reset">Reset</button>
-        </form>
-        </table>
-
-        
-            <button onclick="score()">GRAJ!</button>
-            <p>
-                <label>GRACZ o  
-                    <input type="text" name="players" id="player1"  placeholder="Szczepan">
-                </label>
-            </p>
-            <p>
-                <label>GRACZ x  
-                    <input type="text" name="players" id="player2"  placeholder="Mikołaj">
-                </label>
-            </p>
-            <p>Wygrywa : <div id="wynik"></div></p>
-            <!-- <p>Wygrywa : <div id="wynik2"></div></p> -->
-
-
-
-    
-</main>
+    </div>
 </body>
 </html>
