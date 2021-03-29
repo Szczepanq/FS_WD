@@ -75,25 +75,21 @@
     <script>
 
 
-        var player1 = 'Szczepan';
-        var player2 = 'Mikołaj';
-
-
-            function players() {
-                var tmp1 = getElementsByName("players")[0].value;
-                var tmp2 = getElementsByName("players")[1].value;
-                player1.replace('Szczepan',tmp1);
-                player2.replace('Mikołaj',tmp2);
-                //alert(player1 " vs " player2);
-
-            }
-         
-
-        var war = " ";
+        var player1 = 'O';
+        var player2 = 'X';
+        var tmp = [];
         var element = [];    
         
         
         function score() {
+
+                // tmp[0] = getElementById("player1")[0].value;
+                // tmp[1] = getElementById("player2")[1].value;
+                // player1 = tmp[0];
+                // player2 = tmp[1];
+                
+
+
             var n;
             var lc;
             for (n = 0; n<9; n++)
@@ -177,20 +173,6 @@
                  if(uno === dos && dos === tres && tres === 'o')document.getElementById("wynik").innerHTML = player1;
                 k++;
             }
-
-
-            
-
-                
-            
-            
-            
-            
-            
-            
-            
-           // document.getElementById("wynik").innerHTML = element[8];
-
         }
 
 
@@ -240,8 +222,17 @@
         </table>
 
         
-            <button onclick="score()">Wynik</button>
-            
+            <button onclick="score()">GRAJ!</button>
+            <p>
+                <label>GRACZ o  
+                    <input type="text" name="players" id="player1"  placeholder="Szczepan">
+                </label>
+            </p>
+            <p>
+                <label>GRACZ x  
+                    <input type="text" name="players" id="player2"  placeholder="Mikołaj">
+                </label>
+            </p>
             <p>Wygrywa : <div id="wynik"></div></p>
             <!-- <p>Wygrywa : <div id="wynik2"></div></p> -->
 
@@ -249,36 +240,5 @@
 
     
 </main>
-
-
-<!-- <div class="players">
-    <div><a href="#"><label for="player1">O gra : </label> <input type="text" id="player1" maxlength="15" placeholder="gracz1"></a></div>
-
-</div> -->
-<form class="legend">
-    <fieldset>
-        
-        <p>
-            <label>GRACZ o  
-                <input type="text" name="player1" id="player"  placeholder="Szczepan">
-            </label>
-        </p>
-        <p>
-            <label>GRACZ x  
-                <input type="text" name="player2" id="player"  placeholder="Mikołaj">
-            </label>
-        </p>
-        <p>
-            <button onclick="play">GRAJ</button>
-
-        </p>
-    </fieldset>
-</form>
-
-
-
-
-
-
 </body>
 </html>
